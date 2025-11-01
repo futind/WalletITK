@@ -6,13 +6,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.itk.wallet.utils.dto.ExceptionResponse;
 import ru.itk.wallet.balance.dto.WalletBalanceResponse;
 
 import java.util.UUID;
 
+/**
+ * Interface which sets up the contract for viewing the balance of a wallet
+ */
 public interface WalletBalanceAPI {
 
     /**
@@ -35,13 +38,13 @@ public interface WalletBalanceAPI {
             @ApiResponse(responseCode = "400", description = "Validation failed", content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ExceptionResponse.class)
+                            schema = @Schema(implementation = ErrorResponse.class)
                     )
             }),
             @ApiResponse(responseCode = "404", description = "Wallet not found", content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ExceptionResponse.class)
+                            schema = @Schema(implementation = ErrorResponse.class)
                     )
             })
     })
