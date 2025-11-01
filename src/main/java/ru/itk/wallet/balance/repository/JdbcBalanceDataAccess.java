@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
+import ru.itk.wallet.utils.exception.WalletNotFoundException;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -45,8 +46,7 @@ public class JdbcBalanceDataAccess implements BalanceDataAccess {
         );
 
         if (balance == null) {
-            // todo: custom exception - wallet not found
-            throw new RuntimeException("wallet with id not found");
+            throw new WalletNotFoundException();
         }
 
         return balance;
