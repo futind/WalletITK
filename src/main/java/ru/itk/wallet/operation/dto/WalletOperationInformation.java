@@ -1,5 +1,7 @@
 package ru.itk.wallet.operation.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -18,13 +20,25 @@ import java.util.UUID;
 @AllArgsConstructor
 public class WalletOperationInformation {
 
+    /**
+     * Unique identifier for the wallet (UUID)
+     */
     @NotNull
+    @JsonProperty(value = "walletId")
     private UUID walletId;
 
+    /**
+     * Type of operation
+     */
     @NotNull
+    @JsonProperty(value = "operationType")
     private OperationType operationType;
 
+    /**
+     * Amount of money to operate on the wallet with (must be positive)
+     */
     @NotNull
     @Positive
+    @JsonProperty(value = "amount")
     private BigDecimal amount;
 }

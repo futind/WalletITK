@@ -1,5 +1,6 @@
 package ru.itk.wallet.operation.api;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import ru.itk.wallet.utils.dto.ExceptionResponse;
 import ru.itk.wallet.operation.dto.WalletOperationInformation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -45,5 +46,8 @@ public interface WalletOperationAPI {
                     )
             })
     })
-    ResponseEntity<Void> operateOnAWallet(WalletOperationInformation walletInfo);
+    ResponseEntity<Void> operateOnAWallet(
+            @RequestBody(
+                    description = "Information about the wallet, operation and amount of that operation",
+                    required = true) WalletOperationInformation walletInfo);
 }
