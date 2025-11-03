@@ -13,7 +13,7 @@ public interface WithdrawDataAccess {
      * @return updated balance of a wallet
      * @throws ru.itk.wallet.operation.exception.OperationForbiddenException - if there is not enough funds on the user's account
      * @throws ru.itk.wallet.operation.exception.NonPositiveAmountException - if amountToWithdraw is negative or zero
-     * todo: throws WalletNotFoundException
+     * @throws ru.itk.wallet.utils.exception.WalletNotFoundException - if wallet does not exist
      */
     BigDecimal withdraw(UUID walletId, BigDecimal amountToWithdraw);
 }

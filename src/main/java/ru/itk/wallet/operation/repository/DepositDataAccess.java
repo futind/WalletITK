@@ -10,8 +10,8 @@ public interface DepositDataAccess {
      * @param walletId - unique identifier of a wallet (UUID).
      * @param amountToDeposit - amount of money user wants to deposit
      * @return updated amount of money on the account (in the wallet)
-     * @throws ru.itk.wallet.operation.exception.NonPositiveAmountException - if amountToDeposit if negative or zero
-     * todo: throws WalletNotFoundException
+     * @throws ru.itk.wallet.operation.exception.NonPositiveAmountException - if amountToDeposit is negative or zero
+     * @throws ru.itk.wallet.utils.exception.WalletNotFoundException - if wallet does not exist
      */
     BigDecimal deposit(UUID walletId, BigDecimal amountToDeposit);
 }
