@@ -1,12 +1,16 @@
 package ru.itk.wallet.operation.exception;
 
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import ru.itk.wallet.operation.controller.WalletOperationController;
+import ru.itk.wallet.utils.exception.ErrorResponseFactory;
+import ru.itk.wallet.utils.exception.WalletNotFoundException;
 
 /**
  * Controller advice with exception handlers for wallet operation feature
@@ -20,10 +24,9 @@ public class WalletOperationExceptionHandler {
      * @param request - request in which exception was thrown
      * @return RFC 9457 compliant {@link ErrorResponse} wrapped in {@link ResponseEntity} for convenience
      */
-    @ExceptionHandler(value = {ConstraintViolationException.class})
+    @ExceptionHandler(value = {ConstraintViolationException.class, MethodArgumentNotValidException.class})
     public ResponseEntity<ErrorResponse> handleValidationException(Throwable ex, WebRequest request) {
-        // todo: implement handler
-        return null;
+        return ErrorResponseFactory.create(HttpStatus.BAD_REQUEST, ex, request);
     }
 
     /**
@@ -34,19 +37,19 @@ public class WalletOperationExceptionHandler {
      */
     @ExceptionHandler(value = {OperationForbiddenException.class})
     public ResponseEntity<ErrorResponse> handleOperationForbiddenException(Throwable ex, WebRequest request) {
-        // todo: implement handler
-        return null;
+        return ErrorResponseFactory.create(HttpStatus.FORBIDDEN, ex, request);
     }
 
-    // todo: snatch WalletNotFoundException from feature/balance branch and implement a handler for it here to
-    // OR! Make a util Controller advice for exceptions common for both controllers (is it worth it in a long run tho?)
-    // e.g. i make this now, then add N controllers, some of their exception could be handled by some, some by others.
-    // maybe i should separate handlers by domain, e.g. not a controlleradvice for certain controllers, but for certain types of exceptions
-    // idk who cares even if there's N controllers with overlapping exceptions, it is just linear shit, so i have a controller and an advice for it
-    // is it that bad? it might be though i guess at some point
-    // on the other hand - it is wrong in context of vertical slice architecture. If i bind my exception handling to some util tool
-    // it means that i can't just pick this feature off this project and insert into another one which is kinda shit
-    // yeah, i copy the code i guess, but that way it is much more modular
-
+    /**
+     * Handler for exception which are thrown when trying to perform any operation
+     * with a wallet that does not exist in the database
+     * @param ex - exception (thrown when wallet we try to operate with does not exist)
+     * @param request - request in which exception was thrown
+     * @return RFC 9457 compliant {@link ErrorResponse} wrapped in {@link ResponseEntity} for convenience
+     */
+    @ExceptionHandler(value = {WalletNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleNotFoundException(Throwable ex, WebRequest request) {
+        return ErrorResponseFactory.create(HttpStatus.NOT_FOUND, ex, request);
+    }
 
 }
