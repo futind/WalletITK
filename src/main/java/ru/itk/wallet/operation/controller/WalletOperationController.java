@@ -1,7 +1,9 @@
 package ru.itk.wallet.operation.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itk.wallet.operation.api.WalletOperationAPI;
 import ru.itk.wallet.operation.dto.WalletOperationInformation;
@@ -25,7 +27,7 @@ public class WalletOperationController implements WalletOperationAPI {
      */
     @Override
     @PostMapping("/wallet")
-    public ResponseEntity<WalletOperationResponse> operateOnAWallet(WalletOperationInformation walletOperationInformation) {
+    public ResponseEntity<WalletOperationResponse> operateOnAWallet(@RequestBody @Valid WalletOperationInformation walletOperationInformation) {
         return ResponseEntity
                 .ok()
                 .body(walletOperationService.operate(walletOperationInformation));

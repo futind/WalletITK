@@ -14,10 +14,16 @@ import java.util.UUID;
 @AllArgsConstructor
 public class WalletOperationResponse {
 
+    /**
+     * Unique identifier for the wallet (UUID)
+     */
     @NotNull
     @JsonProperty(value = "walletId", required = true)
     private UUID walletId;
 
+    /**
+     * Amount of money to on account
+     */
     @NotNull
     @JsonProperty(value = "walletId", required = true)
     private BigDecimal balance;
