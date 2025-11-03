@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import ru.itk.wallet.balance.controller.WalletBalanceController;
+import ru.itk.wallet.utils.exception.ErrorResponseFactory;
 import ru.itk.wallet.utils.exception.WalletNotFoundException;
 
 /**
