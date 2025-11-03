@@ -32,7 +32,7 @@ public class WalletBalanceController implements WalletBalanceAPI {
      */
     @Override
     @GetMapping("/wallets/{wallet_uuid}")
-    public ResponseEntity<WalletBalanceResponse> getBalance(@PathVariable @Valid UUID wallet_uuid) {
+    public ResponseEntity<WalletBalanceResponse> getBalance(@PathVariable UUID wallet_uuid) {
         return ResponseEntity.ok().body(balanceService.getBalance(wallet_uuid));
     }
 }
