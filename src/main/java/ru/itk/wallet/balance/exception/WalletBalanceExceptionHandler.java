@@ -1,8 +1,10 @@
 package ru.itk.wallet.balance.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -34,7 +36,11 @@ public class WalletBalanceExceptionHandler {
      * @param request - request in which the exception had been raised
      * @return RFC 9457 {@link ErrorResponse} wrapped into {@link ResponseEntity}
      */
-    @ExceptionHandler(value = {MethodArgumentTypeMismatchException.class})
+    @ExceptionHandler(value = {
+            MethodArgumentTypeMismatchException.class,
+            ConstraintViolationException.class, 
+            MethodArgumentNotValidException.class
+    })
     public ResponseEntity<ErrorResponse> handleTypeMismatchException(MethodArgumentTypeMismatchException ex, WebRequest request) {
         return ErrorResponseFactory.create(HttpStatus.BAD_REQUEST, ex, request);
     }
