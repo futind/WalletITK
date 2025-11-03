@@ -24,14 +24,14 @@ public class WalletOperationInformation {
      * Unique identifier for the wallet (UUID)
      */
     @NotNull
-    @JsonProperty(value = "walletId")
+    @JsonProperty(value = "walletId", required = true)
     private UUID walletId;
 
     /**
      * Type of operation
      */
     @NotNull
-    @JsonProperty(value = "operationType")
+    @JsonProperty(value = "operationType", required = true)
     private OperationType operationType;
 
     /**
@@ -39,6 +39,6 @@ public class WalletOperationInformation {
      */
     @NotNull
     @Positive
-    @JsonProperty(value = "amount")
+    @JsonProperty(value = "amount", required = true)
     private BigDecimal amount;
 }
