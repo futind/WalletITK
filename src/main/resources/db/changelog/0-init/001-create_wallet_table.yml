@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: Daniil Futin
+      changes:
+        - createTable:
+            tableName: wallet
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: balance
+                  type: decimal(22, 2)
+                  constraints:
+                    nullable: false
