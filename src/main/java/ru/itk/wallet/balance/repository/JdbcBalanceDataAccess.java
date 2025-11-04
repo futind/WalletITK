@@ -9,6 +9,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import ru.itk.wallet.utils.exception.WalletNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Primary
@@ -37,18 +38,12 @@ public class JdbcBalanceDataAccess implements BalanceDataAccess {
         transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
         transactionTemplate.setReadOnly(true);
 
-        BigDecimal balance = transactionTemplate.execute(
-                transactionStatus -> jdbcTemplate.queryForObject(
+        return Optional.ofNullable(transactionTemplate.execute(
+                transactionStatus -> jdbcTemplate.query(
                         "SELECT balance FROM wallet WHERE id = ?",
-                        BigDecimal.class,
+                        rs -> rs.next() ? rs.getBigDecimal("balance") : null,
                         walletId
                 )
-        );
-
-        if (balance == null) {
-            throw new WalletNotFoundException();
-        }
-
-        return balance;
+        )).orElseThrow(WalletNotFoundException::new);
     }
 }
