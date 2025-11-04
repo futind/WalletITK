@@ -4,13 +4,15 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itk.wallet.operation.api.WalletOperationAPI;
 import ru.itk.wallet.operation.dto.WalletOperationInformation;
 import ru.itk.wallet.operation.dto.WalletOperationResponse;
 import ru.itk.wallet.operation.service.WalletOperationService;
 
-@RestController("/api/v1")
+@RestController
+@RequestMapping("/api/v1")
 public class WalletOperationController implements WalletOperationAPI {
 
     private final WalletOperationService walletOperationService;
