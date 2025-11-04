@@ -1,12 +1,15 @@
+server:
+  port: ${WALLET_APP_INNER_PORT}
+
 spring:
   application:
-    name: "Wallet"
+    name: ${WALLET_APP_NAME}
 
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yml
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${WALLET_DATASOURCE_URL}
-    username: ${WALLET_DATASOURCE_USERNAME}
-    password: ${WALLET_DATASOURCE_PASSWORD}
+    url: ${WALLET_DB_URL}
+    username: ${WALLET_DB_USERNAME}
+    password: ${WALLET_DB_PASSWORD}
