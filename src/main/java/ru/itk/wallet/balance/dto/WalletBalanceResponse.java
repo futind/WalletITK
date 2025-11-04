@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  * DTO, containing wallet balance.
@@ -15,7 +16,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class WalletBalanceResponse {
 
-    // Not @Positive, because I believe that the account (wallet) can be in the red (e.g. you have 0 and the bank charges you with a yearly account maintenance fee)
+    /**
+     * Unique identifier of a wallet
+     */
     @NotNull
-    private BigDecimal walletBalance;
+    private UUID walletId;
+
+    // Not @Positive, because I believe that the account (wallet) can be in the red (e.g. you have 0 and the bank charges you with a yearly account maintenance fee)
+    /**
+     * Amount of money on the account
+     */
+    @NotNull
+    private BigDecimal balance;
 }
