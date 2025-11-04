@@ -25,6 +25,6 @@ public class WalletOperationResponse {
      * Amount of money to on account
      */
     @NotNull
-    @JsonProperty(value = "walletId", required = true)
+    @JsonProperty(value = "balance", required = true)
     private BigDecimal balance;
 }
