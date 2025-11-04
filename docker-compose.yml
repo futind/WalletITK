@@ -1,0 +1,28 @@
+networks:
+  wallet-network:
+    driver: bridge
+
+services:
+  wallet-db:
+    image: postgres:17.6-alpine3.21
+    ports:
+      - "${WALLET_DB_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${WALLET_DB_NAME}
+      POSTGRES_USER: ${WALLET_DB_USERNAME}
+      POSTGRES_PASSWORD: ${WALLET_DB_PASSWORD}
+    volumes:
+      - wallet_db_data:/var/lib/postgresql/data
+
+  wallet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "${WALLET_APP_OUTER_PORT}:${WALLET_APP_INNER_PORT}"
+    depends_on:
+      - wallet-db
+
+volumes:
+  wallet_db_data:
