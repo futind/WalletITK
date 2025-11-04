@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: "Wallet"
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${WALLET_DATASOURCE_URL}
+    username: ${WALLET_DATASOURCE_USERNAME}
+    password: ${WALLET_DATASOURCE_PASSWORD}
