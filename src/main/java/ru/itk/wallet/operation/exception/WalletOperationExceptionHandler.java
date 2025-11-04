@@ -30,12 +30,13 @@ public class WalletOperationExceptionHandler {
     }
 
     /**
-     * Handler for exceptions which are thrown when trying to perform an operation which can not be allowed at that moment
+     * Handler for exceptions which are thrown when trying to perform an operation
+     * which can not be allowed at that moment (or with wrong parameters)
      * @param ex - exception (thrown when trying to perform a forbidden operation) // sound funny bruh
      * @param request - request in which exception was thrown
      * @return RFC 9457 compliant {@link ErrorResponse} wrapped in {@link ResponseEntity} for convenience
      */
-    @ExceptionHandler(value = {OperationForbiddenException.class})
+    @ExceptionHandler(value = {OperationForbiddenException.class, NonPositiveAmountException.class})
     public ResponseEntity<ErrorResponse> handleOperationForbiddenException(Throwable ex, WebRequest request) {
         return ErrorResponseFactory.create(HttpStatus.FORBIDDEN, ex, request);
     }
